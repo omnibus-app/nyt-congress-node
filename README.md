@@ -8,7 +8,6 @@ Node wrapper for NYT Congress API (bills only, for now)
 Plan to add methods for all endpoints; currently only supports endpoints listed under Bills.
 
 ## Usage
-## Usage
 
 ```javascript
 
