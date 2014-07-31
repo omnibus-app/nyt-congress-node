@@ -2,12 +2,28 @@ var extend = require( 'extend' );
 var request = require( 'request' );
 var Promise = require( 'bluebird' );
 
+// endpoints
+// var bills = require( './bills' );
+// // these are empty for now
+// var members =
+// var votes =
+// var nominees =
+// var other =
+
 Promise.promisifyAll( request );
 
 var defaults = {
   'version': 'v3',
   'response-format': '.json'
 };
+
+var endpoints = extend( {},
+  require( './bills' ),
+  require( './members' ),
+  require( './votes' ),
+  require( './nominees' ),
+  require( './other' )
+);
 
 var interpolate = function ( str, obj ) {
   return str.replace( /{([^{}]*)}/g, function ( a, b ) {
@@ -20,9 +36,11 @@ var apiRequest = function ( endpoint, opt, key ) {
   var params = extend( {}, defaults, opt );
   var qs = { 'api-key': key };
   var url = interpolate( endpoint, params );
-  url += ( '?api-key=' + key );
   console.log( url );
-  return request.getAsync( url ).then( function ( res ) {
+  return request.getAsync({
+    url: url,
+    qs: qs
+  }).then( function ( res ) {
     return res[0].body;
   });
 }
@@ -33,43 +51,11 @@ var Congress = ( function () {
     this._apiKey = apiKey;
   };
 
-  extend( Congress.prototype, {
-
-    billsRecent: function ( opt ) {
-      var endpoint = "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/{chamber}/bills/{type}{response-format}";
-      return apiRequest( endpoint, opt, this._apiKey )
-    },
-
-    billsByMember: function ( opt ) {
-      var endpoint = "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/members/{member-id}/bills/{type}{response-format}";
-      return apiRequest( endpoint, opt, this._apiKey )
-    },
-
-    billDetails: function ( opt ) {
-      var endpoint = "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/bills/{bill-id}{response-format}";
-      return apiRequest( endpoint, opt, this._apiKey )
-    },
-
-    billSubjects: function ( opt ) {
-      var endpoint = "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/bills/{bill-id}/subjects{response-format}";
-      return apiRequest( endpoint, opt, this._apiKey )
-    },
-
-    billAmendments: function ( opt ) {
-      var endpoint = "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/bills/{bill-id}/amendments{response-format}";
-      return apiRequest( endpoint, opt, this._apiKey )
-    },
-
-    billRelatedBills: function ( opt ) {
-      var endpoint = "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/bills/{bill-id}/related{response-format}";
-      return apiRequest( endpoint, opt, this._apiKey )
-    },
-
-    billCosponsors: function ( opt ) {
-      var endpoint = "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/bills/{bill-id}/cosponsors{response-format}";
-      return apiRequest( endpoint, opt, this._apiKey )
+  // build a method for each endpoint.
+  Object.keys( endpoints ).forEach( function( name ) {
+    Congress.prototype[name] = function ( opt ) {
+      return apiRequest( endpoints[name], opt, this._apiKey );
     }
-
   });
 
   return Congress;
