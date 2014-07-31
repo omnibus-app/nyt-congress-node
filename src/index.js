@@ -2,19 +2,14 @@ var extend = require( 'extend' );
 var request = require( 'request' );
 var Promise = require( 'bluebird' );
 
-// endpoints
-// var bills = require( './bills' );
-// // these are empty for now
-// var members =
-// var votes =
-// var nominees =
-// var other =
+var params = require( 'params' );
 
 Promise.promisifyAll( request );
 
 var defaults = {
   'version': 'v3',
   'response-format': '.json'
+  'congress-number':
 };
 
 var endpoints = extend( {},
