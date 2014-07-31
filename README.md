@@ -32,13 +32,13 @@ Options passed to each method will be inserted into the relevant endpoint URL sc
 ## TODO
 
 ### Endpoints
-- [ ] Add Members endpoints
-- [ ] Add Votes endpoints
-- [ ] Add Nominees endpoints
-- [ ] Add Other endpoints
+- [x] Add Members endpoints
+- [x] Add Votes endpoints
+- [x] Add Nominees endpoints
+- [x] Add Other endpoints
 
 ### Misc
-- [ ] validate params against params.js
-- [ ] Default to current congress if none specified
-- [ ] accept camelCase or dash-case for params
+- [x] validate params against params.js
+- [x] Default to current congress if none specified
+- [x] accept camelCase or dash-case for params
 - [ ] accept number or string for `congress-number`
