@@ -1,16 +1,19 @@
 var extend = require( 'extend' );
 var request = require( 'request' );
 var Promise = require( 'bluebird' );
-
-var params = require( 'params' );
-
 Promise.promisifyAll( request );
 
-var defaults = {
-  'version': 'v3',
-  'response-format': '.json'
-  'congress-number':
-};
+var params = require( './params' );
+var urlParams = params.urlParams
+var qsParams = params.qsParams
+
+var util = require( './util' );
+var interpolate = util.interpolate;
+var dasherize = util.dasherize;
+var camelize = util.camelize;
+var mapKeys = util.mapKeys;
+
+var dasherizeKeys = mapKeys.bind( null, dasherize );
 
 var endpoints = extend( {},
   require( './bills' ),
@@ -20,18 +23,50 @@ var endpoints = extend( {},
   require( './other' )
 );
 
-var interpolate = function ( str, obj ) {
-  return str.replace( /{([^{}]*)}/g, function ( a, b ) {
-    var r = obj[b];
-    return typeof r === 'string' || typeof r === 'number' ? r : a;
+var defaults = {
+  'version': 'v3',
+  'response-format': '.json',
+  'congress-number': 113 // current congress
+};
+
+var validateParams = function ( params ) {
+  var validity = Object.keys( params ).every( function ( key ) {
+    var ok = urlParams[key]( params[key] );
+    if ( !ok ) {
+      throw new RangeError( params[key] + " is an invalid value for " + key );
+    }
+    return ok;
   });
 };
 
-var apiRequest = function ( endpoint, opt, key ) {
-  var params = extend( {}, defaults, opt );
-  var qs = { 'api-key': key };
+var generateOpts = function ( opt ) {
+  var qs = {};
+  var params = {};
+  Object.keys( opt ).forEach( function ( key ) {
+    if ( urlParams[key] ) {
+      params[key] = opt[key];
+    } else if ( qsParams[key] ) {
+      qs[key] = opt[key];
+    }
+  });
+  return {
+    params: params,
+    qs: qs
+  };
+};
+
+var apiRequest = function ( endpoint, key, opt ) {
+
+  var dashedOpt = dasherizeKeys( extend( {}, defaults, opt ) );
+  var opts = generateOpts( dashedOpt );
+  var params = opts.params;
+  var qs = extend( opts.qs, { 'api-key': key } );
+
+  // will throw informative errors if invalid
+  validateParams( params );
+
   var url = interpolate( endpoint, params );
-  console.log( url );
+
   return request.getAsync({
     url: url,
     qs: qs
@@ -49,7 +84,7 @@ var Congress = ( function () {
   // build a method for each endpoint.
   Object.keys( endpoints ).forEach( function( name ) {
     Congress.prototype[name] = function ( opt ) {
-      return apiRequest( endpoints[name], opt, this._apiKey );
+      return apiRequest( endpoints[name], this._apiKey, opt );
     }
   });
 
