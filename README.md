@@ -10,11 +10,11 @@ Plan to add methods for all endpoints; currently only supports endpoints listed 
 ## TODO
 
 ### Endpoints
-[ ] Add Members endpoints
-[ ] Add Votes endpoints
-[ ] Add Nominees endpoints
-[ ] Add Other endpoints
+- [ ] Add Members endpoints
+- [ ] Add Votes endpoints
+- [ ] Add Nominees endpoints
+- [ ] Add Other endpoints
 
 ### Misc
-[ ] validate params against params.js
-[ ] Default to current congress if none specified
+- [ ] validate params against params.js
+- [ ] Default to current congress if none specified
