@@ -19,7 +19,13 @@ module.exports = {
     'district': function ( str ) {
       return !isNan( Number( str ) ) // TODO: add real validation
     }
-    'end-date': function () { return true }, // TODO: add real validation,
+    'end-date': function () {
+      return (
+        // should match YYYY-MM-DD or YYYY-MM
+        /^\d{4}-\d{1,2}-\d{1,2}$/.test( str ) ||
+        /^\d{4}-\d{1,2}$/.test( str )
+      );
+    },
     'member-id': alphanumeric,
     'member-id-2': alphanumeric,
     'member-id-1': alphanumeric,
@@ -27,9 +33,19 @@ module.exports = {
     'nominee-id': alphanumeric,
     'resource': contains.bind( null, ['subjects', 'amendments', 'related'] ),
     'response-format': contains.bind( null, ['.json', '.xml'] ),
-    'roll-call-number': function () { return true }, // TODO: add real validation
-    'session-number': function () { return true }, // TODO: add real validation
-    'start-date': function () { return true }, // TODO: add real validation
+    'roll-call-number': function ( str ) {
+      return !isNaN( Number( str ) );
+    },
+    'session-number': function ( str ) {
+      return !isNaN( Number( str ) );
+    },
+    'start-date': function ( str ) {
+      return (
+        // should match YYYY-MM-DD or YYYY-MM
+        /^\d{4}-\d{1,2}-\d{1,2}$/.test( str ) ||
+        /^\d{4}-\d{1,2}$/.test( str )
+      );
+    },
     'state': contains.bind( null, ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'] ),
     'vote-type': contains.bind( null, ['missed_votes', 'party_votes', 'loneno', 'perfect'] ),
     'version': function ( str ) {
