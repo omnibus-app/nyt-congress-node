@@ -18,7 +18,7 @@ module.exports = {
     'cosponsor-type': contains.bind( null, ['cosponsored', 'withdrawn'] ),
     'district': function ( str ) {
       return !isNan( Number( str ) ) // TODO: add real validation
-    }
+    },
     'end-date': function () {
       return (
         // should match YYYY-MM-DD or YYYY-MM
