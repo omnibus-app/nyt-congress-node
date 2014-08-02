@@ -23,22 +23,35 @@ Plan to add methods for all endpoints; currently only supports endpoints listed 
 
 ```
 
-Options passed to each method will be inserted into the relevant endpoint URL scheme based on their key. `billDetails` has the endpoint `http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/bills/{bill-id}[.response-format]`
+Options passed to each method will be inserted into the relevant endpoint URL scheme based on their key. `billDetails` has the endpoint `http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/bills/{bill-id}{response-format}`
 
 `version` and `response-format` have defaults, so we don't need to include them. `bill-id` and `congress-number` get inserted into this url. Final request is made to:
 
-`http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.json`
+`http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.json?api-key={API_KEY}`
+
+All API call methods return promises.
+
+This package works in the browser. To generate a version that will provide a `Congress` browser global, go to the project root and run (assuming you have `browserify` installed globally):
+
+```sh
+browserify -s Congress ./ > congress-browser.js
+```
+
+Fair warning: the standalone, browserified pacakage is pretty damn big.
 
 ## TODO
 
 ### Endpoints
-- [ ] Add Members endpoints
-- [ ] Add Votes endpoints
-- [ ] Add Nominees endpoints
-- [ ] Add Other endpoints
+- [x] Add Members endpoints
+- [x] Add Votes endpoints
+- [x] Add Nominees endpoints
+- [x] Add Other endpoints
+
+### Environments
+- [x] Confirm works in browser
 
 ### Misc
-- [ ] validate params against params.js
-- [ ] Default to current congress if none specified
-- [ ] accept camelCase or dash-case for params
-- [ ] accept number or string for `congress-number`
+- [x] validate params against params.js
+- [x] Default to current congress if none specified
+- [x] accept camelCase or dash-case for params
+- [x] accept number or string for `congress-number`
