@@ -6,7 +6,7 @@ module.exports = {
   membersLeavingOffice: "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/{chamber}/members/leaving{response-format}",
   memberVotePositions: "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/members/{member-id}/votes{response-format}",
   memberVoteComparison: "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/members/{member-id-1}/votes/{member-id-2}/{congress-number}/{chamber}{response-format}",
-  memberCosponsoredBills: "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/members/{member-id}/bills/{type}{response-format}",
+  memberCosponsoredBills: "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/members/{member-id}/bills/{cosponsor-type}{response-format}",
   memberSponsorshipComparison: "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/members/{member-id-1}/bills/{member-id-2}/{congress-number}/{chamber}{response-format}",
   memberFloorAppearances: "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/members/{member-id}/floor_appearances{response-format}",
 };
