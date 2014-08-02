@@ -1,7 +1,8 @@
 var extend = require( 'extend' );
 var request = require( 'request' );
-var Promise = require( 'bluebird' );
-Promise.promisifyAll( request );
+var Promise = require( 'promise' );
+
+var get = Promise.denodeify( request.get );
 
 var params = require( './params' );
 var urlParams = params.urlParams
@@ -29,6 +30,7 @@ var defaults = {
   'congress-number': 113 // current congress
 };
 
+// confirms that a parameter hash is valid against params.js
 var validateParams = function ( params ) {
   var validity = Object.keys( params ).every( function ( key ) {
     var ok = urlParams[key]( params[key] );
@@ -39,6 +41,7 @@ var validateParams = function ( params ) {
   });
 };
 
+// separates URI paramaters and querystring parameters into discrete objects.
 var generateOpts = function ( opt ) {
   var qs = {};
   var params = {};
@@ -67,13 +70,15 @@ var apiRequest = function ( endpoint, key, opt ) {
 
   var url = interpolate( endpoint, params );
 
-  return request.getAsync({
+  return get({
     url: url,
-    qs: qs
+    qs: qs,
+    withCredentials: false
   }).then( function ( res ) {
-    return res[0].body;
+    return res.body;
   });
-}
+
+};
 
 var Congress = ( function () {
 
