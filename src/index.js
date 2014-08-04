@@ -1,8 +1,6 @@
 var extend = require( 'extend' );
 var request = require( 'request' );
-var Promise = require( 'promise' );
-
-var get = Promise.denodeify( request.get );
+var Promise = require( 'es6-promise' ).Promise;
 
 var params = require( './params' );
 var urlParams = params.urlParams
@@ -11,7 +9,6 @@ var qsParams = params.qsParams
 var util = require( './util' );
 var interpolate = util.interpolate;
 var dasherize = util.dasherize;
-var camelize = util.camelize;
 var mapKeys = util.mapKeys;
 
 var dasherizeKeys = mapKeys.bind( null, dasherize );
@@ -28,6 +25,18 @@ var defaults = {
   'version': 'v3',
   'response-format': '.json',
   'congress-number': 113 // current congress
+};
+
+var getAsPromise = function ( opt ) {
+  return new Promise( function ( resolve, reject ) {
+    request( opt, function ( err, resp, body ) {
+      if ( err ) {
+        reject( err );
+      } else {
+        resolve( body );
+      }
+    });
+  });
 };
 
 // confirms that a parameter hash is valid against params.js
@@ -70,12 +79,10 @@ var apiRequest = function ( endpoint, key, opt ) {
 
   var url = interpolate( endpoint, params );
 
-  return get({
+  return getAsPromise({
     url: url,
     qs: qs,
     withCredentials: false
-  }).then( function ( res ) {
-    return res.body;
   });
 
 };
@@ -87,7 +94,7 @@ var Congress = ( function () {
   };
 
   // build a method for each endpoint.
-  Object.keys( endpoints ).forEach( function( name ) {
+  Object.keys( endpoints ).forEach( function ( name ) {
     Congress.prototype[name] = function ( opt ) {
       return apiRequest( endpoints[name], this._apiKey, opt );
     }
