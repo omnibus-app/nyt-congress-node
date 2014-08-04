@@ -1,6 +1,9 @@
 nyt-congress-node
 =================
 
+[![Build Status](http://img.shields.io/travis/omnibus-app/nyt-congress-node.svg?style=flat
+)](https://travis-ci.org/omnibus-app/testling-backbone-boilerplate)
+
 Node wrapper for NYT Congress API (bills only, for now)
 
 [API Docs](http://developer.nytimes.com/docs/read/congress_api)
