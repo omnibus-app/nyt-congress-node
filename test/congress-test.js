@@ -30,6 +30,7 @@ describe( 'Congress constructor', function () {
 var methods = [ "memberLists", "memberBioAndRoles", "membersNew", "membersCurrentByStateOrDistrict", "membersLeavingOffice", "memberVotePositions", "memberVoteComparison", "memberCosponsoredBills", "memberSponsorshipComparison", "memberFloorAppearances", "billsRecent", "billsByMember", "billDetails", "billSubjects", "billAmendments", "billRelatedBills", "billCosponsors", "nomineeLists", "nomineeDetails", "nomineesByState", "statePartyCounts", "committeeList", "committeeRoster", "chamberSchedule", "votesRollCall", "votesByType", "votesByDate", "votesNominations" ];
 
 describe( 'Congress instance methods', function () {
+
   var Congress;
   var client;
   var stub;
@@ -42,9 +43,14 @@ describe( 'Congress instance methods', function () {
   });
 
   methods.forEach( function ( method ) {
-    it( 'Should have a method called ' + method, function () {
+    it( 'Should have a ' + method + ' method.', function () {
       client[method]({});
       expect( stub ).to.have.been.called;
+    });
+
+    it( method + ' should return a promise', function () {
+      var result = client[method]({});
+      expect( result.then ).to.be.a( 'function' );
     })
   });
 
