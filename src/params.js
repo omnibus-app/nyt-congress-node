@@ -6,6 +6,18 @@ function alphanumeric ( str ) {
   return /^[a-z0-9]+$/i.test( str );
 }
 
+function numeric ( str ) {
+  return !isNaN( Number( str ) );
+}
+
+function date ( str ) {
+  return (
+    // should match YYYY-MM-DD or YYYY-MM
+    /^\d{4}-\d{1,2}-\d{1,2}$/.test( str ) ||
+    /^\d{4}-\d{1,2}$/.test( str )
+  );
+}
+
 module.exports = {
   urlParams: Object.freeze({
     'bill-id': alphanumeric,
@@ -16,16 +28,8 @@ module.exports = {
       return contains( [105, 106, 107, 108, 109, 110, 111, 112, 113], Number( num ) );
     },
     'cosponsor-type': contains.bind( null, ['cosponsored', 'withdrawn'] ),
-    'district': function ( str ) {
-      return !isNan( Number( str ) ) // TODO: add real validation
-    },
-    'end-date': function () {
-      return (
-        // should match YYYY-MM-DD or YYYY-MM
-        /^\d{4}-\d{1,2}-\d{1,2}$/.test( str ) ||
-        /^\d{4}-\d{1,2}$/.test( str )
-      );
-    },
+    'district': numeric,
+    'end-date': date,
     'member-id': alphanumeric,
     'member-id-2': alphanumeric,
     'member-id-1': alphanumeric,
@@ -33,19 +37,9 @@ module.exports = {
     'nominee-id': alphanumeric,
     'resource': contains.bind( null, ['subjects', 'amendments', 'related'] ),
     'response-format': contains.bind( null, ['.json', '.xml'] ),
-    'roll-call-number': function ( str ) {
-      return !isNaN( Number( str ) );
-    },
-    'session-number': function ( str ) {
-      return !isNaN( Number( str ) );
-    },
-    'start-date': function ( str ) {
-      return (
-        // should match YYYY-MM-DD or YYYY-MM
-        /^\d{4}-\d{1,2}-\d{1,2}$/.test( str ) ||
-        /^\d{4}-\d{1,2}$/.test( str )
-      );
-    },
+    'roll-call-number': numeric,
+    'session-number': numeric,
+    'start-date': date,
     'state': contains.bind( null, ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'] ),
     'vote-type': contains.bind( null, ['missed_votes', 'party_votes', 'loneno', 'perfect'] ),
     'version': function ( str ) {
