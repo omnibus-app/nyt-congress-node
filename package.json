@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "wrapper for NYT Congress API",
   "main": "./src",
-  "author": "Nick Bottomley (http://github.com/nickb1080)"
+  "author": "Nick Bottomley (http://github.com/nickb1080)",
   "scripts": {
     "test": "mocha test/test.js -R spec"
   },
