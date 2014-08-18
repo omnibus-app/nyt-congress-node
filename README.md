@@ -1,5 +1,6 @@
 nyt-congress-node
 =================
+[![NPM](https://nodei.co/npm/nyt-congress-node.png?compact=true)](https://nodei.co/npm/nyt-congress-node/)
 
 [![Build Status](http://img.shields.io/travis/omnibus-app/nyt-congress-node.svg?style=flat
 )](https://travis-ci.org/omnibus-app/nyt-congress-node)
