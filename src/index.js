@@ -50,6 +50,16 @@ var validateParams = function ( params ) {
   });
 };
 
+var validateUrl = function ( url ) {
+  var matches = url.match( /{([^{}]*)}/g );
+  if ( matches ) {
+    matches = matches.map( function ( match, i ) {
+      return match.replace( "}", "\"" ).replace( "{", "\"" );
+    });
+    throw new Error( 'No value for parameters: ' + matches.join( ', ' ) );
+  }
+};
+
 // separates URI paramaters and querystring parameters into discrete objects.
 var generateOpts = function ( opt ) {
   var qs = {};
@@ -78,6 +88,9 @@ var apiRequest = function ( endpoint, key, opt ) {
   validateParams( params );
 
   var url = interpolate( endpoint, params );
+
+  // will throw informative error if some params aren't satisfied
+  validateUrl( url );
 
   return getAsPromise({
     url: url,
