@@ -5,7 +5,7 @@ nyt-congress-node
 [![Build Status](http://img.shields.io/travis/omnibus-app/nyt-congress-node.svg?style=flat
 )](https://travis-ci.org/omnibus-app/nyt-congress-node)
 
-Node wrapper for NYT Congress API (bills only, for now)
+Node wrapper for NYT Congress API.
 
 [API Docs](http://developer.nytimes.com/docs/read/congress_api)
 
@@ -41,19 +41,7 @@ This package works in the browser. To generate a version that will provide a `Co
 browserify -s Congress ./ > congress-browser.js
 ```
 
-Fair warning: the standalone, browserified pacakage is pretty damn big.
-
-## TODO
-
-### Endpoints
-- [x] Add Members endpoints
-- [x] Add Votes endpoints
-- [x] Add Nominees endpoints
-- [x] Add Other endpoints
-
-### Environments
-- [x] Confirm works in browser
-
+Fair warning: the standalone, browserified pacakage is pretty darn big.
 ### Misc
 - [x] validate params against params.js
 - [x] Default to current congress if none specified
