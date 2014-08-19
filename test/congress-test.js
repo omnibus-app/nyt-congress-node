@@ -9,6 +9,29 @@ chai.use( sinonChai );
 
 var Promise = require( 'es6-promise' ).Promise;
 
+var testParams = require( './test-params' );
+var methodStringMap = [
+    require( '../src/bills' ),
+    require( '../src/members' ),
+    require( '../src/nominees' ),
+    require( '../src/other' ),
+    require( '../src/votes' )
+  ].reduce( function ( acc, obj ) {
+    Object.keys( obj ).forEach( function ( key ) {
+      acc[key] = obj[key];
+    });
+    return acc;
+  }, Object.create( null ) );
+
+var makeParams = function ( method ) {
+  var params = {};
+  var str = methodStringMap[method] + "";
+  str.replace( /{([^{}]*)}/g, function ( a, b ) {
+    params[b] = testParams[b];
+  });
+  return params;
+};
+
 var makeRequestStub = function () {
   return sinon.spy( function () {
     return new Promise( function ( resolve, reject ) {
@@ -44,14 +67,16 @@ describe( 'Congress instance methods', function () {
 
   methods.forEach( function ( method ) {
     it( 'Should have a ' + method + ' method.', function () {
-      client[method]({});
+      var params = makeParams( method );
+      client[method]( params );
       expect( stub ).to.have.been.called;
     });
 
     it( method + ' should return a promise', function () {
-      var result = client[method]({});
+      var params = makeParams( method );
+      var result = client[method]( params );
       expect( result.then ).to.be.a( 'function' );
-    })
+    });
   });
 
 
