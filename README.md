@@ -42,8 +42,3 @@ browserify -s Congress ./ > congress-browser.js
 ```
 
 Fair warning: the standalone, browserified pacakage is pretty darn big.
-### Misc
-- [x] validate params against params.js
-- [x] Default to current congress if none specified
-- [x] accept camelCase or dash-case for params
-- [x] accept number or string for `congress-number`
