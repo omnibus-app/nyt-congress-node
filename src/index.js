@@ -96,6 +96,8 @@ var apiRequest = function ( endpoint, key, opt ) {
     url: url,
     qs: qs,
     withCredentials: false
+  }).then( function ( response ) {
+    return JSON.parse( response );
   });
 
 };
@@ -104,13 +106,13 @@ var Congress = ( function () {
 
   function Congress( apiKey ) {
     this._apiKey = apiKey;
-  };
+  }
 
   // build a method for each endpoint.
   Object.keys( endpoints ).forEach( function ( name ) {
     Congress.prototype[name] = function ( opt ) {
       return apiRequest( endpoints[name], this._apiKey, opt );
-    }
+    };
   });
 
   return Congress;
