@@ -44,7 +44,7 @@ var validateParams = function ( params ) {
   var validity = Object.keys( params ).every( function ( key ) {
     var ok = urlParams[key]( params[key] );
     if ( !ok ) {
-      throw new RangeError( params[key] + " is an invalid value for " + key );
+      console.log( params[key] + " is an invalid value for " + key );
     }
     return ok;
   });
@@ -56,7 +56,7 @@ var validateUrl = function ( url ) {
     matches = matches.map( function ( match, i ) {
       return match.replace( "}", "\"" ).replace( "{", "\"" );
     });
-    throw new Error( 'No value for parameters: ' + matches.join( ', ' ) );
+    console.log( 'No value for parameters: ' + matches.join( ', ' ) );
   }
 };
 
