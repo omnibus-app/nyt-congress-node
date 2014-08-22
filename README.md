@@ -66,12 +66,14 @@ will dispatch a request to the following URL:
 http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.json?api-key=API_KEY
 ```
 
-**Every method returns a promise**
+**Every method returns a promise.**
+
+There is fairly stringent parameter validation applied to every request.
 
 ## Bills
 
 ### `.billsRecent()`
-**Endpoint documentation**: [Recent bills](http://developer.nytimes.com/docs/read/congress_api#h3-bills) 
+**Endpoint documentation**: [Recent bills](http://developer.nytimes.com/docs/read/congress_api#h3-bills)
 
 **Parameters:**
 - congressNumber
