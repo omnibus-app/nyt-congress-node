@@ -71,184 +71,212 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ## Bills
 
 ### `.billsRecent()`
-**Delegates to** [Recent bills](http://developer.nytimes.com/docs/read/congress_api#h3-bills)
+**Endpoint documentation**: [Recent bills](http://developer.nytimes.com/docs/read/congress_api#h3-bills)
+
 **Parameters:**
-congressNumber
-chamber
-billType
+- congressNumber
+- chamber
+- billType
 
 ### `.billsByMember()`
-**Delegates to** [Bills by member](http://developer.nytimes.com/docs/read/congress_api#h3-bills-by-member)
+**Endpoint documentation**: [Bills by member](http://developer.nytimes.com/docs/read/congress_api#h3-bills-by-member)
+
 **Parameters:**
-memberId
-billType
+- memberId
+- billType
 
 ### `billDetails()`
-**Delegates to** [Bill details](http://developer.nytimes.com/docs/read/congress_api#h3-bill-details)
+**Endpoint documentation**: [Bill details](http://developer.nytimes.com/docs/read/congress_api#h3-bill-details)
+
 **Parameters:**
-congressNumber
-billId
+- congressNumber
+- billId
 
 ### `billSubjects()`
-**Delegates to** [Bill subjects, amendments, and related bills](http://developer.nytimes.com/docs/read/congress_api#h3-bill-subjects) _with resource set to "subjects"_
+**Endpoint documentation**: [Bill subjects, amendments, and related bills](http://developer.nytimes.com/docs/read/congress_api#h3-bill-subjects) _with resource set to "subjects"_
+
 **Parameters:**
-congressNumber
-billId
+- congressNumber
+- billId
 
 ### `billAmendments()`
-**Delegates to** [Bill subjects, amendments, and related bills](http://developer.nytimes.com/docs/read/congress_api#h3-bill-subjects) _with resource set to "amendment"_
+**Endpoint documentation**: [Bill subjects, amendments, and related bills](http://developer.nytimes.com/docs/read/congress_api#h3-bill-subjects) _with resource set to "amendment"_
+
 **Parameters:**
-congressNumber
-billId
+- congressNumber
+- billId
 
 ### `billRelatedBills()`
-**Delegates to** [Bill subjects, amendments, and related bills](http://developer.nytimes.com/docs/read/congress_api#h3-bill-subjects) _with resource set to "related"_
+**Endpoint documentation**: [Bill subjects, amendments, and related bills](http://developer.nytimes.com/docs/read/congress_api#h3-bill-subjects) _with resource set to "related"_
+
 **Parameters:**
-congressNumber
-billId
+- congressNumber
+- billId
 
 ### `billCosponsors()`
-**Delegates to** [Bill cosponsors](http://developer.nytimes.com/docs/read/congress_api#h3-bill-cosponsors)
+**Endpoint documentation**: [Bill cosponsors](http://developer.nytimes.com/docs/read/congress_api#h3-bill-cosponsors)
+
 **Parameters:**
-congressNumber
-billId
+- congressNumber
+- billId
 
 
 ## Members
 
 ### `memberLists()`
-**Delegates to** [Member lists](http://developer.nytimes.com/docs/read/congress_api#h3-members)
+**Endpoint documentation**: [Member lists](http://developer.nytimes.com/docs/read/congress_api#h3-members)
+
 **Parameters:**
-congressNumber
-chamber
+- congressNumber
+- chamber
 
 ### `memberBioAndRoles()`
-**Delegates to** [Member bio and roles](http://developer.nytimes.com/docs/read/congress_api#h3-member-roles)
+**Endpoint documentation**: [Member bio and roles](http://developer.nytimes.com/docs/read/congress_api#h3-member-roles)
+
 **Parameters:**
-memberId
+- memberId
 
 ### `membersNew()`
-**Delegates to** [New members](http://developer.nytimes.com/docs/read/congress_api#h3-new-members)
+**Endpoint documentation**: [New members](http://developer.nytimes.com/docs/read/congress_api#h3-new-members)
+
 **Parameters:**
-_None_
+- _None_
 
 ### `membersCurrentByStateOrDistrict()`
-**Delegates to** [Current members by state/district](http://developer.nytimes.com/docs/read/congress_api#h3-current-member)
+**Endpoint documentation**: [Current members by state/district](http://developer.nytimes.com/docs/read/congress_api#h3-current-member)
+
 **Parameters:**
-chamber
-state
-district
+- chamber
+- state
+- district
 
 ### `membersLeavingOffice()`
-**Delegates to** [Members leaving office](http://developer.nytimes.com/docs/read/congress_api#h3-members-leaving)
+**Endpoint documentation**: [Members leaving office](http://developer.nytimes.com/docs/read/congress_api#h3-members-leaving)
+
 **Parameters:**
-congressNumber
+- congressNumber
 
 ### `memberVotePositions()`
-**Delegates to** [Member vote positions](http://developer.nytimes.com/docs/read/congress_api#h3-member-positions)
+**Endpoint documentation**: [Member vote positions](http://developer.nytimes.com/docs/read/congress_api#h3-member-positions)
+
 **Parameters:**
-memberId
+- memberId
 
 ### `memberVoteComparison()`
-**Delegates to** [Member vote comparison](http://developer.nytimes.com/docs/read/congress_api#h3-compare-members)
+**Endpoint documentation**: [Member vote comparison](http://developer.nytimes.com/docs/read/congress_api#h3-compare-members)
+
 **Parameters:**
-memberId1
-memberId2
-congressNumber
-chamber
+- memberId1
+- memberId2
+- congressNumber
+- chamber
 
 ### `memberCosponsoredBills()`
-**Delegates to** [Bills cosponsored by a member](http://developer.nytimes.com/docs/read/congress_api#h3-cosponsor-bills)
+**Endpoint documentation**: [Bills cosponsored by a member](http://developer.nytimes.com/docs/read/congress_api#h3-cosponsor-bills)
+
 **Parameters:**
-memberId
-cosponsorType
+- memberId
+- cosponsorType
 
 ### `memberSponsorshipComparison()`
-**Delegates to** [Member cosponsorship comparison](http://developer.nytimes.com/docs/read/congress_api#h3-member-sponsorship-comparison)
+**Endpoint documentation**: [Member cosponsorship comparison](http://developer.nytimes.com/docs/read/congress_api#h3-member-sponsorship-comparison)
+
 **Parameters:**
-memberId1
-memberId2
-congressNumber
-chamber
+- memberId1
+- memberId2
+- congressNumber
+- chamber
 
 ### `memberFloorAppearances()`
-**Delegates to** [Member floor appearances](http://developer.nytimes.com/docs/read/congress_api#h3-member-floor-appearances)
+**Endpoint documentation**: [Member floor appearances](http://developer.nytimes.com/docs/read/congress_api#h3-member-floor-appearances)
+
 **Parameters:**
-memberId
+- memberId
 
 
 ## Nominees
 
 ### `nomineeLists()`
-**Delegates to** [Nominee lists](http://developer.nytimes.com/docs/read/congress_api#h3-nominees)
+**Endpoint documentation**: [Nominee lists](http://developer.nytimes.com/docs/read/congress_api#h3-nominees)
+
 **Parameters:**
-congressNumber
-nominationCategory
+- congressNumber
+- nominationCategory
 
 ### `nomineeDetails()`
-**Delegates to** [Nominee details](http://developer.nytimes.com/docs/read/congress_api#h3-nominee-details)
+**Endpoint documentation**: [Nominee details](http://developer.nytimes.com/docs/read/congress_api#h3-nominee-details)
+
 **Parameters:**
-congressNumber
-nomineeId
+- congressNumber
+- nomineeId
 
 ### `nomineesByState()`
-**Delegates to** [Nominees by state](http://developer.nytimes.com/docs/read/congress_api#h3-nominees-by-state)
+**Endpoint documentation**: [Nominees by state](http://developer.nytimes.com/docs/read/congress_api#h3-nominees-by-state)
+
 **Parameters:**
-congressNumber
-state
+- congressNumber
+- state
 
 
 ## Other
 
 ### `statePartyCounts()`
-**Delegates to** [State party counts](http://developer.nytimes.com/docs/read/congress_api#h3-state-parties)
+**Endpoint documentation**: [State party counts](http://developer.nytimes.com/docs/read/congress_api#h3-state-parties)
+
 **Parameters:**
-_None_
+- _None_
 
 ### `committeeList()`
-**Delegates to** [Committees and committee members](http://developer.nytimes.com/docs/read/congress_api#h3-committees) _but doesn't accept a committee id_
+**Endpoint documentation**: [Committees and committee members](http://developer.nytimes.com/docs/read/congress_api#h3-committees) _but doesn't accept a committee id_
+
 **Parameters:**
-congressNumber
-chamber
+- congressNumber
+- chamber
 
 ### `committeeRoster()`
-**Delegates to** [Committees and committee members](http://developer.nytimes.com/docs/read/congress_api#h3-committees) _but requires a committee id_
+**Endpoint documentation**: [Committees and committee members](http://developer.nytimes.com/docs/read/congress_api#h3-committees) _but requires a committee id_
+
 **Parameters:**
-congressNumber
-chamber
-committeeId
+- congressNumber
+- chamber
+- committeeId
 
 ### `chamberSchedule()`
-**Delegates to** [Chamber schedule](http://developer.nytimes.com/docs/read/congress_api#h3-chamber-schedule)
+**Endpoint documentation**: [Chamber schedule](http://developer.nytimes.com/docs/read/congress_api#h3-chamber-schedule)
+
 **Parameters:**
-chamber
+- chamber
 
 
 ## Votes
 
 ### `votesRollCall()`
-**Delegates to** [Roll-call votes](http://developer.nytimes.com/docs/read/congress_api#h3-votes)
+**Endpoint documentation**: [Roll-call votes](http://developer.nytimes.com/docs/read/congress_api#h3-votes)
+
 **Parameters:**
-congressNumber
-chamber
-sessionNumber
-rollCallNumber
+- congressNumber
+- chamber
+- sessionNumber
+- rollCallNumber
 
 ### `votesByType()`
-**Delegates to** [Votes by type](http://developer.nytimes.com/docs/read/congress_api#h3-votes-by-type)
+**Endpoint documentation**: [Votes by type](http://developer.nytimes.com/docs/read/congress_api#h3-votes-by-type)
+
 **Parameters:**
-congressNumber
-chamber
-voteType
+- congressNumber
+- chamber
+- voteType
 
 ### `votesByDate()`
-**Delegates to** [Votes by date](http://developer.nytimes.com/docs/read/congress_api#h3-votes-by-date)
+**Endpoint documentation**: [Votes by date](http://developer.nytimes.com/docs/read/congress_api#h3-votes-by-date)
+
 **Parameters:**
-chamber
-year
-month
+- chamber
+- year
+- month
 
 ### `votesNominations()`
-**Delegates to** [nominationVotes](http://developer.nytimes.com/docs/read/congress_api#h3-nom-votes)
-**Parameters: **
-congressNumber
+**Endpoint documentation**: [nominationVotes](http://developer.nytimes.com/docs/read/congress_api#h3-nom-votes)
+
+**Parameters:**
+- congressNumber
