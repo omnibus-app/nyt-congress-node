@@ -71,7 +71,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ## Bills
 
 ### `.billsRecent()`
-**Endpoint documentation**: [Recent bills](http://developer.nytimes.com/docs/read/congress_api#h3-bills)
+**Endpoint documentation**: [Recent bills](http://developer.nytimes.com/docs/read/congress_api#h3-bills) 
 
 **Parameters:**
 - congressNumber
