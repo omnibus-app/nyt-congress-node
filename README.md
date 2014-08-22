@@ -15,7 +15,7 @@ Node wrapper for NYT Congress API. [REST API Docs](http://developer.nytimes.com/
   var client = new Congress( API_KEY );
 
   client.billDetails({
-    'bill-id': 'HR2397',
+    billId: 'HR2397',
   }).then( function ( res ) {
     console.log( res );
   });
@@ -367,3 +367,30 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 # Parameter Validation
+`nyt-congress-node` validates all parameters passed to methods. Generally, parameter strings are checked with `contains`, `alphanumeric`, `numeric`, and `date`. Contains checks if a value is in a pre-set list. Each parameter will also accept the camelCased version of it's key.
+
+```
+'bill-id': alphanumeric
+'bill-type': contains // => ['introduced', 'updated', 'passed', 'major']
+'chamber': contains // => ['house', 'senate']
+'committee-id': alphanumeric,
+'congress-number': contains // => [105, 106, 107, 108, 109, 110, 111, 112, 113]
+'cosponsor-type': contains // => ['cosponsored', 'withdrawn']
+'district': numeric
+'end-date': date
+'member-id': alphanumeric
+'member-id-2': alphanumeric
+'member-id-1': alphanumeric
+'nomination-category': contains // => ['received', 'updated', 'confirmed', 'withdrawn']
+'nominee-id': alphanumeric
+'resource': contains // => ['subjects', 'amendments', 'related'] ),
+'response-format': contains // => ['.json', '.xml']
+'roll-call-number': numeric
+'session-number': numeric
+'start-date': date
+'state': contains // => ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
+'vote-type': contains // => ['missed_votes', 'party_votes', 'loneno', 'perfect'] ),
+'version': // => must be v3
+'year': numeric
+'month': numeric
+```

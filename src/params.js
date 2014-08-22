@@ -10,10 +10,6 @@ function numeric ( str ) {
   return !isNaN( Number( str ) );
 }
 
-function pass () {
-  return true;
-}
-
 function date ( str ) {
   return (
     // should match YYYY-MM-DD or YYYY-MM
