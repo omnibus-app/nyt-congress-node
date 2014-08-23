@@ -1,6 +1,6 @@
 {
   "name": "nyt-congress-node",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "wrapper for NYT Congress API",
   "main": "./src",
   "author": "Nick Bottomley (http://github.com/nickb1080)",
