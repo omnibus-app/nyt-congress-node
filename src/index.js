@@ -97,7 +97,13 @@ var apiRequest = function ( endpoint, key, opt ) {
     qs: qs,
     withCredentials: false
   }).then( function ( response ) {
-    return JSON.parse( response );
+    var res;
+    try {
+      res = JSON.parse( res );
+    } catch ( err ) {
+      res = response;
+    }
+    return res;
   });
 
 };
