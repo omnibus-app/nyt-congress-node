@@ -1,9 +1,9 @@
 {
   "name": "propublica-congress-node",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Client lib for ProPublica Congress API (formerly NYT)",
   "main": "./src",
-  "author": "Nick Bottomley (http://github.com/nickb1080)",
+  "author": "",
   "contributors": [
     {
       "name": "Jonathan Wohl",
@@ -18,7 +18,6 @@
     "test": "mocha test/test.js -R spec"
   },
   "repository": "https://github.com/notioncollective/propublica-congress-node",
-  "author": "",
   "license": "MIT",
   "dependencies": {
     "request": "^2.39.0"
