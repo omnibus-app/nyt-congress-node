@@ -256,8 +256,8 @@ https://api.propublica.org/congress/v0/114/house/members.json
 - type ('cosponsored' or 'withdrawn')
 ```
 
-### `memberFloorAppearances()`
-**Endpoint documentation**: [Member floor appearances](http://developer.nytimes.com/docs/read/congress_api#h3-member-floor-appearances)
+### ~~`memberFloorAppearances()`~~
+**Endpoint documentation**: ~~Member floor appearances~~ Not yet implemented in ProPublica API, but maybe coming soon.
 
 **Parameters:**
 ```
