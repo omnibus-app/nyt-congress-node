@@ -1,18 +1,26 @@
 {
-  "name": "nyt-congress-node",
-  "version": "0.4.2",
-  "description": "wrapper for NYT Congress API",
+  "name": "propublica-congress-node",
+  "version": "0.1.0",
+  "description": "Client lib for ProPublica Congress API (formerly NYT)",
   "main": "./src",
   "author": "Nick Bottomley (http://github.com/nickb1080)",
+  "contributors": [
+    {
+      "name": "Jonathan Wohl",
+      "url": "https://github.com/jmwohl"
+    },
+    {
+      "name": "Andrew Dayton",
+      "url": "https://github.com/andyinabox"
+    }
+  ],
   "scripts": {
     "test": "mocha test/test.js -R spec"
   },
-  "repository": "https://github.com/omnibus-app/nyt-congress-node",
+  "repository": "https://github.com/notioncollective/propublica-congress-node",
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "es6-promise": "^1.0.0",
-    "extend": "^1.3.0",
     "request": "^2.39.0"
   },
   "devDependencies": {

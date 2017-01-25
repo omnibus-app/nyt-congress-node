@@ -25,7 +25,7 @@ module.exports = {
     'chamber': contains.bind( null, ['house', 'senate'] ),
     'committee-id': alphanumeric,
     'congress-number': function ( num ) {
-      return contains( [105, 106, 107, 108, 109, 110, 111, 112, 113], Number( num ) );
+      return contains( [105, 106, 107, 108, 109, 110, 111, 112, 113, 114], Number( num ) );
     },
     'cosponsor-type': contains.bind( null, ['cosponsored', 'withdrawn'] ),
     'district': numeric,

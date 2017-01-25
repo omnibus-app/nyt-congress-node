@@ -1,23 +1,22 @@
-nyt-congress-node
+propublica-congress-node
 =================
-[![NPM](https://nodei.co/npm/nyt-congress-node.png?compact=true)](https://nodei.co/npm/nyt-congress-node/)
 
-[![Build Status](http://img.shields.io/travis/omnibus-app/nyt-congress-node.svg?style=flat
-)](https://travis-ci.org/omnibus-app/nyt-congress-node)
+> Big ups to Nick Bottomley (http://github.com/nickb1080), who wrote most of this code. We've just updated it to hit the updated ProPublica endpoints, as the API is now maintained there.
 
-Node wrapper for NYT Congress API. [REST API Docs](http://developer.nytimes.com/docs/read/congress_api).
+Node wrapper for ProPublica Congress API (formerly NYT). [REST API Docs](https://propublica.github.io/congress-api-docs).
 
 ## Usage
 
 ```javascript
 
-  var Congress = require( 'nyt-congress-node' );
+  var Congress = require( 'propublica-congress-node' );
   var client = new Congress( API_KEY );
 
-  client.billDetails({
-    billId: 'HR2397',
-  }).then( function ( res ) {
-    console.log( res );
+  client.memberLists({
+    congressNumber: '114',
+    chamber: 'house'
+  }).then(function(res) {
+    console.log(res);
   });
 
 ```
@@ -30,39 +29,41 @@ browserify -s Congress ./ > congress-browser.js
 
 Fair warning: the standalone, browserified pacakage is pretty darn big.
 
-`nyt-congress-node` is a straight-forward wrapper around the New York Times Congress API. The Times' developer site has comprehensive documentation as well as example results for each query.
+`propublica-congress-node` is a straight-forward wrapper around the ProPublica Congress API (formerly maintained by the NYT). The ProPublica site has [comprehensive documentation](https://propublica.github.io/congress-api-docs) as well as example results for each query.
 
-Internally, `nyt-congress-node` uses string interpolation on the API endpoints detailed in the [API documentation](http://developer.nytimes.com/docs/read/congress_api). For example, the bill details endpoint has a url structure as follows
+Internally, `propublica-congress-node` uses string interpolation on the API endpoints detailed in the [API documentation](https://propublica.github.io/congress-api-docs). For example, the bill details endpoint has a url structure as follows
 
 ```
-http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/bills/{bill-id}[.response-format]?api-key={your-API-key}
+https://api.propublica.org/congress/{version}/{congress-number}/{chamber}/members.{response-format}
 ```
 
-A valid request needs to fill in this URL with the following parameters: `version`, `congress-number`, `bill-id`, `response-format`, and an `api-key`.
+A valid request needs to fill in this URL with the following parameters: `version`, `congress-number`, `chamber`, and a `response-format`.
 
-Of these, only `bill-id` is required. The API key must be passed to the constructor and is automatically added to every request. `congress-number` defaults to 113 (the current congress), and `response-format` defaults to JSON.
+Of these, only `chamber` is required. The `version` defaults to 'v0' (the only option, currently), `congress-number` defaults to 114 (the current congress, in 2017), and `response-format` defaults to JSON (also the only offering, currently).
 
 Each method takes a parameters object, which it "dasherizes" (turns the keys from `camelCase` to `dash-case`), then interpolates these values into the string.
+
+The API key (request one from ProPublica) must be passed to the constructor and is automatically added to every request in the `X-API-Key` header.
 
 The example at the top
 
 ```javascript
-  var Congress = require( 'nyt-congress-node' );
+  var Congress = require( 'propublica-congress-node' );
   var client = new Congress( 'API_KEY' );
 
-  client.billDetails({
-    'bill-id': 'HR2397',
-  }).then( function ( res ) {
-    console.log( res );
+  client.memberLists({
+    chamber: 'house'
+  }).then(function(res) {
+    console.log(res);
   });
 ```
 will dispatch a request to the following URL:
 
 ```
-http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.json?api-key=API_KEY
+https://api.propublica.org/congress/v0/114/house/members.json
 ```
 
-**Every method returns a promise.**
+**Every method returns a ES6 Promise.**
 
 # API
 - [Bills](#bills)
@@ -104,7 +105,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ## Bills
 
 ### `.billsRecent()`
-**Endpoint documentation**: [Recent bills](http://developer.nytimes.com/docs/read/congress_api#h3-bills)
+**Endpoint documentation**: [Recent bills](https://propublica.github.io/congress-api-docs/#get-recent-bills)
 
 **Parameters:**
 ```
@@ -114,7 +115,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `.billsByMember()`
-**Endpoint documentation**: [Bills by member](http://developer.nytimes.com/docs/read/congress_api#h3-bills-by-member)
+**Endpoint documentation**: [Bills by member](https://propublica.github.io/congress-api-docs/#get-recent-bills-by-a-specific-member)
 
 **Parameters:**
 ```
@@ -123,7 +124,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `billDetails()`
-**Endpoint documentation**: [Bill details](http://developer.nytimes.com/docs/read/congress_api#h3-bill-details)
+**Endpoint documentation**: [Bill details](https://propublica.github.io/congress-api-docs/#get-a-specific-bill)
 
 **Parameters:**
 ```
@@ -132,7 +133,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `billSubjects()`
-**Endpoint documentation**: [Bill subjects, amendments, and related bills](http://developer.nytimes.com/docs/read/congress_api#h3-bill-subjects) _with resource set to "subjects"_
+**Endpoint documentation**: [Bill subjects, amendments, and related bills](https://propublica.github.io/congress-api-docs/#get-a-subjects-amendments-and-related-bills-for-a-specific-bill) _with type set to "subjects"_
 
 **Parameters:**
 ```
@@ -141,7 +142,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `billAmendments()`
-**Endpoint documentation**: [Bill subjects, amendments, and related bills](http://developer.nytimes.com/docs/read/congress_api#h3-bill-subjects) _with resource set to "amendment"_
+**Endpoint documentation**: [Bill subjects, amendments, and related bills](https://propublica.github.io/congress-api-docs/#get-a-subjects-amendments-and-related-bills-for-a-specific-bill) _with type set to "amendment"_
 
 **Parameters:**
 ```
@@ -150,7 +151,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `billRelatedBills()`
-**Endpoint documentation**: [Bill subjects, amendments, and related bills](http://developer.nytimes.com/docs/read/congress_api#h3-bill-subjects) _with resource set to "related"_
+**Endpoint documentation**: [Bill subjects, amendments, and related bills](https://propublica.github.io/congress-api-docs/#get-a-subjects-amendments-and-related-bills-for-a-specific-bill) _with type set to "related"_
 
 **Parameters:**
 ```
@@ -159,7 +160,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `billCosponsors()`
-**Endpoint documentation**: [Bill cosponsors](http://developer.nytimes.com/docs/read/congress_api#h3-bill-cosponsors)
+**Endpoint documentation**: [Bill cosponsors](https://propublica.github.io/congress-api-docs/#get-cosponsors-for-a-specific-bill)
 
 **Parameters:**
 ```
@@ -170,7 +171,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ## Members
 
 ### `memberLists()`
-**Endpoint documentation**: [Member lists](http://developer.nytimes.com/docs/read/congress_api#h3-members)
+**Endpoint documentation**: [Member lists](https://propublica.github.io/congress-api-docs/#lists-of-members)
 
 **Parameters:**
 ```
@@ -179,7 +180,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `memberBioAndRoles()`
-**Endpoint documentation**: [Member bio and roles](http://developer.nytimes.com/docs/read/congress_api#h3-member-roles)
+**Endpoint documentation**: [Member detail, bio and roles](https://propublica.github.io/congress-api-docs/#get-a-specific-member)
 
 **Parameters:**
 ```
@@ -187,7 +188,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `membersNew()`
-**Endpoint documentation**: [New members](http://developer.nytimes.com/docs/read/congress_api#h3-new-members)
+**Endpoint documentation**: [New members](https://propublica.github.io/congress-api-docs/#get-new-members)
 
 **Parameters:**
 ```
@@ -195,25 +196,26 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `membersCurrentByStateOrDistrict()`
-**Endpoint documentation**: [Current members by state/district](http://developer.nytimes.com/docs/read/congress_api#h3-current-member)
+**Endpoint documentation**: [Current members by state/district](https://propublica.github.io/congress-api-docs/#get-current-members-by-state-district)
 
 **Parameters:**
 ```
 - chamber
 - state
-- district
+- district (for house only)
 ```
 
 ### `membersLeavingOffice()`
-**Endpoint documentation**: [Members leaving office](http://developer.nytimes.com/docs/read/congress_api#h3-members-leaving)
+**Endpoint documentation**: [Members leaving office](https://propublica.github.io/congress-api-docs/#get-members-leaving-office)
 
 **Parameters:**
 ```
 - congressNumber
+- chamber
 ```
 
 ### `memberVotePositions()`
-**Endpoint documentation**: [Member vote positions](http://developer.nytimes.com/docs/read/congress_api#h3-member-positions)
+**Endpoint documentation**: [Member vote positions](https://propublica.github.io/congress-api-docs/#get-a-specific-member-39-s-vote-positions)
 
 **Parameters:**
 ```
@@ -221,7 +223,18 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `memberVoteComparison()`
-**Endpoint documentation**: [Member vote comparison](http://developer.nytimes.com/docs/read/congress_api#h3-compare-members)
+**Endpoint documentation**: [Member vote comparison](https://propublica.github.io/congress-api-docs/#compare-two-members-vote-positions)
+
+**Parameters:**
+```
+- memberId1
+- memberId2
+- congressNumber
+- chamber
+```
+
+### `memberSponsorshipComparison()`
+**Endpoint documentation**: [Member cosponsorship comparison](https://propublica.github.io/congress-api-docs/#compare-two-members-39-bill-sponsorships)
 
 **Parameters:**
 ```
@@ -232,23 +245,12 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `memberCosponsoredBills()`
-**Endpoint documentation**: [Bills cosponsored by a member](http://developer.nytimes.com/docs/read/congress_api#h3-cosponsor-bills)
+**Endpoint documentation**: [Bills cosponsored by a member](https://propublica.github.io/congress-api-docs/#get-bills-cosponsored-by-a-specific-member)
 
 **Parameters:**
 ```
 - memberId
-- cosponsorType
-```
-
-### `memberSponsorshipComparison()`
-**Endpoint documentation**: [Member cosponsorship comparison](http://developer.nytimes.com/docs/read/congress_api#h3-member-sponsorship-comparison)
-
-**Parameters:**
-```
-- memberId1
-- memberId2
-- congressNumber
-- chamber
+- type ('cosponsored' or 'withdrawn')
 ```
 
 ### `memberFloorAppearances()`
@@ -262,16 +264,16 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ## Nominees
 
 ### `nomineeLists()`
-**Endpoint documentation**: [Nominee lists](http://developer.nytimes.com/docs/read/congress_api#h3-nominees)
+**Endpoint documentation**: [Nominee lists](https://propublica.github.io/congress-api-docs/#nominations)
 
 **Parameters:**
 ```
 - congressNumber
-- nominationCategory
+- type ('received', 'updated', 'confirmed', 'withdrawn')
 ```
 
 ### `nomineeDetails()`
-**Endpoint documentation**: [Nominee details](http://developer.nytimes.com/docs/read/congress_api#h3-nominee-details)
+**Endpoint documentation**: [Nominee details](https://propublica.github.io/congress-api-docs/#get-a-specific-nomination)
 
 **Parameters:**
 ```
@@ -280,7 +282,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `nomineesByState()`
-**Endpoint documentation**: [Nominees by state](http://developer.nytimes.com/docs/read/congress_api#h3-nominees-by-state)
+**Endpoint documentation**: [Nominees by state](https://propublica.github.io/congress-api-docs/#get-nominees-by-state)
 
 **Parameters:**
 ```
@@ -291,7 +293,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ## Other
 
 ### `statePartyCounts()`
-**Endpoint documentation**: [State party counts](http://developer.nytimes.com/docs/read/congress_api#h3-state-parties)
+**Endpoint documentation**: [State party counts](https://propublica.github.io/congress-api-docs/#get-state-party-counts)
 
 **Parameters:**
 ```
@@ -299,7 +301,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `committeeList()`
-**Endpoint documentation**: [Committees and committee members](http://developer.nytimes.com/docs/read/congress_api#h3-committees) _but doesn't accept a committee id_
+**Endpoint documentation**: [Committees and committee members](https://propublica.github.io/congress-api-docs/#get-committees-and-committee-memberships) _but doesn't accept a committee id_
 
 **Parameters:**
 ```
@@ -308,7 +310,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `committeeRoster()`
-**Endpoint documentation**: [Committees and committee members](http://developer.nytimes.com/docs/read/congress_api#h3-committees) _but requires a committee id_
+**Endpoint documentation**: [Committees and committee members](https://propublica.github.io/congress-api-docs/#get-committees-and-committee-memberships) _but requires a committee id_
 
 **Parameters:**
 ```
@@ -317,18 +319,10 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 - committeeId
 ```
 
-### `chamberSchedule()`
-**Endpoint documentation**: [Chamber schedule](http://developer.nytimes.com/docs/read/congress_api#h3-chamber-schedule)
-
-**Parameters:**
-```
-- chamber
-```
-
 ## Votes
 
 ### `votesRollCall()`
-**Endpoint documentation**: [Roll-call votes](http://developer.nytimes.com/docs/read/congress_api#h3-votes)
+**Endpoint documentation**: [Roll-call votes](https://propublica.github.io/congress-api-docs/#get-a-specific-roll-call-vote)
 
 **Parameters:**
 ```
@@ -339,7 +333,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `votesByType()`
-**Endpoint documentation**: [Votes by type](http://developer.nytimes.com/docs/read/congress_api#h3-votes-by-type)
+**Endpoint documentation**: [Votes by type](https://propublica.github.io/congress-api-docs/#get-votes-by-type)
 
 **Parameters:**
 ```
@@ -349,7 +343,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `votesByDate()`
-**Endpoint documentation**: [Votes by date](http://developer.nytimes.com/docs/read/congress_api#h3-votes-by-date)
+**Endpoint documentation**: [Votes by date](https://propublica.github.io/congress-api-docs/#get-votes-by-date)
 
 **Parameters:**
 ```
@@ -359,7 +353,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 ### `votesNominations()`
-**Endpoint documentation**: [nominationVotes](http://developer.nytimes.com/docs/read/congress_api#h3-nom-votes)
+**Endpoint documentation**: [nominationVotes](https://propublica.github.io/congress-api-docs/#get-senate-nomination-votes)
 
 **Parameters:**
 ```
@@ -367,7 +361,7 @@ http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/bills/HR2397.
 ```
 
 # Parameter Validation
-`nyt-congress-node` validates all parameters passed to methods. Generally, parameter strings are checked with `contains`, `alphanumeric`, `numeric`, and `date`. Contains checks if a value is in a pre-set list. Each parameter will also accept the camelCased version of it's key.
+`propublica-congress-node` validates all parameters passed to methods. Generally, parameter strings are checked with `contains`, `alphanumeric`, `numeric`, and `date`. Contains checks if a value is in a pre-set list. Each parameter will also accept the camelCased version of it's key.
 
 ```
 'bill-id': alphanumeric
