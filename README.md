@@ -42,7 +42,7 @@ https://api.propublica.org/congress/{version}/{congress-number}/{chamber}/member
 
 A valid request needs to fill in this URL with the following parameters: `version`, `congress-number`, `chamber`, and a `response-format`.
 
-Of these, only `chamber` is required. The `version` defaults to 'v0' (the only option, currently), `congress-number` defaults to 114 (the current congress, in 2017), and `response-format` defaults to JSON (also the only offering, currently).
+Of these, only `chamber` is required. The `version` defaults to 'v1' (the only version, currently), `congress-number` defaults to 114 (the current congress, in 2017), and `response-format` defaults to JSON (also the only offering, currently).
 
 Each method takes a parameters object, which it "dasherizes" (turns the keys from `camelCase` to `dash-case`), then interpolates these values into the string.
 
