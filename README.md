@@ -1,6 +1,8 @@
 propublica-congress-node
 =================
 
+[![Build Status](https://travis-ci.org/notioncollective/propublica-congress-node.svg?branch=master)](https://travis-ci.org/notioncollective/propublica-congress-node)
+
 > Big ups to Nick Bottomley (http://github.com/nickb1080), who wrote most of this code. We've just updated it to hit the updated ProPublica endpoints, as the API is now maintained there.
 
 Node wrapper for ProPublica Congress API (formerly NYT). [REST API Docs](https://propublica.github.io/congress-api-docs).
