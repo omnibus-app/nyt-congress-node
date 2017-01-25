@@ -7,8 +7,6 @@ var expect = chai.expect;
 
 chai.use( sinonChai );
 
-var Promise = require( 'es6-promise' ).Promise;
-
 var testParams = require( './test-params' );
 var methodStringMap = [
     require( '../src/bills' ),
