@@ -1,5 +1,6 @@
 propublica-congress-node
 =================
+[![NPM](https://nodei.co/npm/propublica-congress-node.png?compact=true)](https://nodei.co/npm/propublica-congress-node/)
 
 [![Build Status](https://travis-ci.org/notioncollective/propublica-congress-node.svg?branch=master)](https://travis-ci.org/notioncollective/propublica-congress-node)
 
