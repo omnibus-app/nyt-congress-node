@@ -1,6 +1,6 @@
 module.exports = {
-  nomineeLists: "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/nominees/{nomination-category}{response-format}",
-  nomineeDetails: "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/nominees/{nominee-id}{response-format}",
-  nomineesByState: "http://api.nytimes.com/svc/politics/{version}/us/legislative/congress/{congress-number}/nominees/state/{state}{response-format}"
+  nomineeLists: "https://api.propublica.org/congress/v1/{congress-number}/nominees/{nomination-category}{response-format}",
+  nomineeDetails: "https://api.propublica.org/congress/v1/{congress-number}/nominees/{nominee-id}{response-format}",
+  nomineesByState: "https://api.propublica.org/congress/v1/{congress-number}/nominees/state/{state}{response-format}"
 };
 

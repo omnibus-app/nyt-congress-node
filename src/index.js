@@ -1,6 +1,4 @@
-var extend = require( 'extend' );
 var request = require( 'request' );
-var Promise = require( 'es6-promise' ).Promise;
 
 var params = require( './params' );
 var urlParams = params.urlParams
@@ -13,7 +11,7 @@ var mapKeys = util.mapKeys;
 
 var dasherizeKeys = mapKeys.bind( null, dasherize );
 
-var endpoints = extend( {},
+var endpoints = Object.assign( {},
   require( './bills' ),
   require( './members' ),
   require( './votes' ),
@@ -22,9 +20,9 @@ var endpoints = extend( {},
 );
 
 var defaults = {
-  'version': 'v3',
+  'version': 'v1',
   'response-format': '.json',
-  'congress-number': 113 // current congress
+  'congress-number': 114 // current congress
 };
 
 var getAsPromise = function ( opt ) {
@@ -79,10 +77,13 @@ var generateOpts = function ( opt ) {
 
 var apiRequest = function ( endpoint, key, opt ) {
 
-  var dashedOpt = dasherizeKeys( extend( {}, defaults, opt ) );
+  var dashedOpt = dasherizeKeys( Object.assign( {}, defaults, opt ) );
   var opts = generateOpts( dashedOpt );
   var params = opts.params;
-  var qs = extend( opts.qs, { 'api-key': key } );
+  var qs = opts.qs;
+  var headers = {
+    'X-API-Key': key
+  };
 
   // will throw informative errors if invalid
   validateParams( params );
@@ -95,11 +96,12 @@ var apiRequest = function ( endpoint, key, opt ) {
   return getAsPromise({
     url: url,
     qs: qs,
+    headers: headers,
     withCredentials: false
   }).then( function ( response ) {
     var res;
     try {
-      res = JSON.parse( res );
+      res = JSON.parse( response );
     } catch ( err ) {
       res = response;
     }

@@ -25,7 +25,7 @@ module.exports = {
     'chamber': contains.bind( null, ['house', 'senate'] ),
     'committee-id': alphanumeric,
     'congress-number': function ( num ) {
-      return contains( [105, 106, 107, 108, 109, 110, 111, 112, 113], Number( num ) );
+      return contains( [105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115], Number( num ) );
     },
     'cosponsor-type': contains.bind( null, ['cosponsored', 'withdrawn'] ),
     'district': numeric,
@@ -43,7 +43,7 @@ module.exports = {
     'state': contains.bind( null, ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'] ),
     'vote-type': contains.bind( null, ['missed_votes', 'party_votes', 'loneno', 'perfect'] ),
     'version': function ( str ) {
-      return str === 'v3';
+      return str === 'v1';
     },
     'year': numeric,
     'month': numeric
