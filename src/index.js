@@ -26,7 +26,6 @@ var defaults = {
 };
 
 var getAsPromise = function ( opt ) {
-  console.log(opt);
   return new Promise( function ( resolve, reject ) {
     request( opt, function ( err, resp, body ) {
       if ( err ) {
@@ -102,7 +101,7 @@ var apiRequest = function ( endpoint, key, opt ) {
   }).then( function ( response ) {
     var res;
     try {
-      res = JSON.parse( res );
+      res = JSON.parse( response );
     } catch ( err ) {
       res = response;
     }
