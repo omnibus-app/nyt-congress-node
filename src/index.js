@@ -4,7 +4,7 @@ var Promise = require( 'es6-promise' ).Promise;
 
 var params = require( './params' );
 var urlParams = params.urlParams
-var qsParams = params.qsParams
+var qsParams = params.queryStringParams
 
 var util = require( './util' );
 var interpolate = util.interpolate;
